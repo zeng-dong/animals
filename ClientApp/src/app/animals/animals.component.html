@@ -1,0 +1,103 @@
+<app-animal></app-animal>
+
+
+
+  <div *ngIf="ready">
+
+    <span class="an-button-row" *ngFor="let species of data.species">
+      <button mat-raised-button color="primary" (click)="display(species)">{{species}}</button>
+    </span>
+
+
+    <span class="an-button-row" *ngFor="let category of data.categories">
+      <button mat-raised-button color="primary" (click)="displayCategory(category)">{{category}}</button>
+    </span>
+
+    <hr />
+
+    <ng-container *ngIf="categoryMode">
+      <span class="an-button-row" *ngFor="let sub of subCategories">
+        <button mat-raised-button color="primary" (click)="displaySubCategory(sub)">SubCategory: {{sub}}</button>
+      </span>
+    </ng-container>
+
+
+    <ng-container *ngIf="groupReady">
+      <mat-grid-list cols="2" rowHeight="750px">
+        <mat-grid-tile>
+
+
+          <div class="datatable-container mat-elevation-z8" style="width:100%;">
+            <div class="datatable-header">
+
+              <mat-form-field floatLabel="never">
+                <input matInput [(ngModel)]="searchKey" (keyup)="applyFilter()" placeholder="Search" autocomplete="off">
+                <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="clearSearchKey()" *ngIf="searchKey">
+                  <mat-icon>close</mat-icon>
+                </button>
+              </mat-form-field>
+            </div>
+
+            <mat-table #table [dataSource]="dataSource" matSort>
+
+              <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+                <mat-cell *matCellDef="let a">
+                  <a [routerLink]="" (click)="detail(a)">{{a.name}}</a>
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="image">
+                <mat-header-cell *matHeaderCellDef mat-sort-header>Image</mat-header-cell>
+                <mat-cell *matCellDef="let a"> <img [src]="a.imageUrl" class="imagethumb" /> </mat-cell>
+
+              </ng-container>
+
+              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+
+            <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 15]">
+            </mat-paginator>
+          </div>
+
+
+        </mat-grid-tile>
+
+        <mat-grid-tile [colspan]="1">
+
+          <mat-card class="detail-card" *ngIf="selected">
+            <mat-card-header>
+              <mat-card-title>
+                {{selected.name}}
+              </mat-card-title>
+
+              <mat-card-subtitle>{{selected.location}}</mat-card-subtitle>
+
+            </mat-card-header>
+            <mat-card-content class="detail-card-content">
+              <div>
+                <img [src]="selected.imageUrl" class="cardimage" />
+              </div>
+
+              <p>
+                {{selected.details}}
+              </p>
+
+            </mat-card-content>
+          </mat-card>
+
+
+        </mat-grid-tile>
+
+
+
+      </mat-grid-list>
+
+    </ng-container>
+
+
+
+
+
+  </div>

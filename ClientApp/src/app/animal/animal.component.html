@@ -1,0 +1,17 @@
+<p>
+  <input matInput [(ngModel)]="take" placeholder="Take" autocomplete="off">
+</p>
+
+
+<span>
+  <button mat-raised-button color="primary" (click)="unicast()">Unicast</button>
+  <button mat-raised-button color="primary" (click)="multicast()">Multicast</button>
+
+  <button mat-raised-button color="primary" (click)="oneAfterOne()">One Two</button>
+
+  <button mat-raised-button color="primary" (click)="oneAfterOnePublishConnect()">One Two Connect</button>
+
+  <button mat-raised-button color="primary" (click)="switchMapPractice()">One Two SwitchMap</button>
+  
+
+</span>
